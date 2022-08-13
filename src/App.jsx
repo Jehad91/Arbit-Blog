@@ -20,7 +20,9 @@ function App() {
           <Router>
             <Header />
             <Routes>
-              <Route path="/" element={<Posts />} />
+              <Route path="/" element={<Posts/>} >
+                <Route path="/posts" element={<Posts/>} />
+              </Route>
             </Routes>
           </Router>
         </QueryClientProvider>
