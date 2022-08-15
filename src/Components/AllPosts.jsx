@@ -10,11 +10,10 @@ import Card from './Card';
 const array= new Array(9).fill("A");
 
 const AllPosts = () => {
-  //const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const {id} = useSelector(state => state.user.value);
   const posts = useSelector(state => state.posts.value);
-
+  
   const { isLoading, isError } = useQuery(['posts'],
   () => axios.get('https://jsonplaceholder.typicode.com/posts')
   .then((res) => res.data?.filter((post) => post.userId === id))

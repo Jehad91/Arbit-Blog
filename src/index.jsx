@@ -6,12 +6,14 @@ import {Provider} from 'react-redux';
 import userReducer from './Features/user';
 import postsReducer from './Features/posts';
 import postReducer from './Features/post';
+import isOpenReducer from './Features/isOpen';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     posts: postsReducer,
     post: postReducer,
+    isOpen: isOpenReducer,
   }
 });
 

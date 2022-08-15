@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPost } from '../Features/post';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const customStyles = {
   content: {
@@ -33,15 +33,8 @@ function UpdateButton() {
   const [body, setBody] = useState(post?.body);
   
   const handleUpdate = (id) => {
-    axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-      id,
-      title,
-      body,
-      userId,
-    })
-    .then(({data}) => {
-      closeModal()
-      toast.success('Post Updated Successfuly!', {
+    if(title === '' || body === '') {
+      toast.error('Please fill in all fields!', {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
@@ -50,8 +43,29 @@ function UpdateButton() {
         draggable: true,
         progress: undefined,
         });
-      return dispatch(setPost(data));
-    })
+      return;
+    }
+    else {
+      axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+        id,
+        title,
+        body,
+        userId,
+      })
+      .then(({data}) => {
+        closeModal()
+        toast.success('Post Updated Successfuly!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+        return dispatch(setPost(data));
+      })
+    }
   }
   function openModal() {
     setIsOpen(true);
@@ -77,10 +91,11 @@ function UpdateButton() {
           <label htmlFor="details">Details</label>
           <textarea id="details" name="body" value={body} className="resize-none border p-1.5 h-60 rounded mb-4" placeholder='Body...' onChange={(event) => setBody(event.target.value)}  />
         </form>
-        <button className="py-1 px-3 rounded-xl bg-blue-600 text-white mr-2" onClick={() => handleUpdate(id)}>Update</button>
-        <button className="py-1 px-3 rounded-xl bg-red-600 text-white" onClick={closeModal}>Close</button>
+        <div className="flex items-center justify-end gap-2">
+          <button className="py-1 px-3 rounded-xl bg-blue-600 text-white mr-2" onClick={() => handleUpdate(id)}>Update</button>
+          <button className="py-1 px-3 rounded-xl bg-red-600 text-white" onClick={closeModal}>Close</button>
+        </div>
       </Modal>
-      <ToastContainer />
     </>
   )
 }
