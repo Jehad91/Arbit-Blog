@@ -7,7 +7,7 @@ function Logo() {
     <Link to='/posts'>
       <div className="flex items-center gap-4">
         <img src={logo} alt="Logo" className="max-w-full w-8"/>
-        <h1 className="font-medium text-2xl">Arbit Blog</h1>
+        <h1 className="font-medium lg:text-2xl md:text-lg sm:text-xs">Arbit Blog</h1>
       </div>
     </Link>
   )
