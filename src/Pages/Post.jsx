@@ -9,7 +9,7 @@ const Post = () => {
   return (
     <>
       <div className="bg-white rounded-sm drop-shadow-md px-5 py-8">
-        <div className="w-2/3">
+        <div className="lg:w-2/3 md:w-5/6 sm-full">
           <BackButton />
           <SinglePost />
           <div className="flex items-center justify-end gap-2">
