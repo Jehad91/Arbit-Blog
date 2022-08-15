@@ -5,11 +5,13 @@ import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import userReducer from './Features/user';
 import postsReducer from './Features/posts';
+import postReducer from './Features/post';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     posts: postsReducer,
+    post: postReducer,
   }
 });
 

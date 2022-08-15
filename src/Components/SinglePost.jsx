@@ -4,13 +4,17 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useSelector, useDispatch } from 'react-redux';
+import {setPost} from '../Features/post';
 
 const SinglePost = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const post = useSelector(state => state.post.value);
 
-  const {data: post, isLoading, isError} = useQuery(['post'],
+  const {isLoading, isError} = useQuery(['post'],
     () => axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
-    .then((res) => res.data)
+    .then((res) => dispatch(setPost(res?.data)))
     .catch((err) => console.log(err))
     )
 
